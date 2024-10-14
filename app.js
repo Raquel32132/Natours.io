@@ -20,12 +20,6 @@ const cors = require('cors');
 
 const app = express();
 
-
-// Permitir requisições de '127.0.0.1:3000' (e outras origens, se necessário)
-app.use(cors({
-  origin: ['http://127.0.0.1:3000', 'http://localhost:3000'], // Permitir múltiplas origens se necessário
-}));
-
 const scriptSrcUrls = [
   'https://unpkg.com/',
   'https://tile.openstreetmap.org',
@@ -64,6 +58,11 @@ app.use(compression());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'))
+
+
+app.use(cors());
+
+app.options('*', cors());
 
 // 1) Global Middlewares
 // Serving static files
